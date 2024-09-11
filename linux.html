@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Linux-Befehle</title>
+	<meta charset="utf-8"/>
+	<link rel="icon" type="image/x-icon" href="opsanford.github.io/test/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	
+	<!-- Link to Prism.js CSS for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <!-- Prism.js script for highlighting the code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" defer></script>
+    
+</head>
+<body>
+    <h1>Linux-Befehle</h1>
+    Befehle in Linux, die ich mir unmöglich merken kann:
+
+weitere Befehle: siehe <a href="">weitere Linux-Befehle (noch nicht vorhanden)</a>
+<h2>stdout und stderr umleiten</h2>
+<pre><code class="language-bash">command > file_stdout.txt
+command 2> file_stderr.txt
+command &> file_both.txt
+# stderr to stdout
+command 2>&1
+</code></pre>
+<h2>letzter Return-Code</h2>
+<pre><code class="language-bash">$?
+</code></pre>
+<h2>IP-Adressen sehen</h2>
+<pre><code class="language-bash">ifconfig
+arp -a
+
+# nur Powershell?
+for /L %i in (0,1,255) do ping -n 1 -w 250 192.168.1.%i >> ipaddress.txt
+
+ip addr show | grep "inet "
+
+# Name in local network
+hostname -l
+</code></pre>
+<h2>Adressen aus Hostnamen</h2>
+<pre><code class="language-bash">avahi-resolve -n <name>
+</code></pre>
+<h2>Sachen finden</h2>
+<pre><code class="language-bash">locate <file>
+whereis <program>
+which <program>
+</code></pre>
+<h2>Konsolenbefehl, der bei geschlossener Konsole offen bleibt</h2>
+<pre><code class="language-bash">nohup
+
+screen -dmS Name ...
+screen -ls
+screen -rd Name
+</code></pre>
+<h2>Textbearbeitung:</h2>
+micro
+tilde
+<h2>lokales Netzwerk scannen:</h2>
+nmap -sn 182.168.1.0/24
+<h2>Environment Variables</h2>
+printenv (alle ansehen)
+**lokal:**
+MY_VAR='value'
+printenv MY_VAR
+**inherited:**
+.bashrc, darin Variable erstellen
+**global:**
+/etc/environment
+#<h2>Text ersetzen:</h2>
+<pre><code class="language-bash">echo Hallo | sed "s/H/h/g"
+sed -i "s/old/new/g" <filename>
+</code></pre>
+<h2>Users and groups</h2>
+<pre><code class="language-bash"># see groups for user
+id <username>
+groups <username>
+# see users in group
+getent group <groupname>
+# see all groups
+cat /etc/group
+# add user to group
+usermod -aG <group> <user>
+</code></pre>
+<h2>Befehl ohne sudo als sudo ausführen</h2>
+/etc/sudoers.d/irgendwas
+in der Datei:
+oliver ALL=(ALL) NOPASSWD: /usr/bin/program
+
+auch: hostname=(root, otheruser)
+<h2>SSH-Server</h2>
+<pre><code class="language-bash">systemctl enable|disable|start|stop|status ssh
+</code></pre>
+<h2>Ramfs</h2>
+<pre><code class="language-bash">mount -t ramfs -o size=1m ramfs /mnt/ram
+</code></pre>
+<h2>apt-Repositories</h2>
+/etc/apt/sources.list
+/etc/apt/sources.list.d
+<h2>Startmenü (Mint)</h2>
+**global:** /usr/share/applications
+**nur Benutzer:** ~/.local/share/applications
+<h2>Git einrichten</h2>
+<pre><code class="language-bash">git config --global user.name "abc"
+</code></pre>
+<h2>Docker:</h2>
+<pre><code class="language-bash"># run docker commands without sudo
+sudo groupadd docker
+sudo gpasswd -a <username> docker
+
+# see images and active containers
+docker images
+docker ps
+
+# run image (interactive)
+docker run -it /
+ --name <name> /
+ --mount type=bind,source=.,target=/foo
+ -m 300M --memory-swap 0 \
+ -p <hostport>:<containerport> \
+ <image>
+
+# open shell
+docker exec -it <name> bash
+</code></pre>
+**detatch from interactive**: Strg-p Strg-q
+**Image**: author/name:version
+
+<pre><code class="language-bash">ssh-keygen -t ed25519 -a <rounds> -f <filename> -C <comment>
+ssh-copy-id -i <filepath.pub> <host>
+</code></pre>
+<h2>Samba:</h2>
+/etc/samba/smb.conf
+Dateibrowser: smb://a.b.c.d/path
+Windows: \\\\a.b.c.d\\path
+systemctl: smbd
+<h2>ein paar praktische (und meist installierte) Tools:</h2>
+<pre><code class="language-bash"># CSV
+column -s, -t <filename>
+awk -F, '$5 >= 10 {print $1,$2}' <filename>
+
+# Hex values
+hexdump -C <filename>
+echo "abc" | hexdump -C
+
+# mehr CSV und so
+echo 'Abcdef' | cut -c 2-5
+cut -d';' -f 2 <filename>
+
+# device read/write speeds
+nmon
+
+dconf-editor
+</code></pre>
+<h2>Wifi-Hotspot</h2>
+WLAN anschalten!
+<pre><code class="language-bash">nmcli device wifi hotspot con-name <name> ssid <namd> band bg password <passwd>
+
+nmcli dev wifi list
+
+nmcli connection delete <name>
+</code></pre>
+<h2>Grub Boot Loader installieren</h2>
+apt install grub-efi oder grub-pc
+grub-install /dev/sda
+<h2>Remotedesktop:</h2>
+sudo apt install xrdp
+hostname -I (lokale IP-Adresse anzeigen)
+
+</body>
+</html>

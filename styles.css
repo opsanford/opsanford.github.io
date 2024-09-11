@@ -1,0 +1,92 @@
+/* Mostly made by ChatGPT (and it is not even bad...) */
+
+/* Basic reset for better consistency across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Adapt to user's system theme using prefers-color-scheme */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --heading-color: #222222;
+    --link-color: #007bff;
+    --button-bg-color: #007bff;
+    --button-hover-bg-color: #004992;
+    --button-text-color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #121212;
+        --text-color: #e0e0e0;
+        --heading-color: #ffffff;
+        --link-color: #1e90ff;
+        --button-bg-color: #1e90ff;
+        --button-hover-bg-color: #004992;
+        --button-text-color: #121212;
+    }
+}
+
+/* Global styles */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Headings */
+h1, h2 {
+    color: var(--heading-color);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--link-color);
+    opacity: 0.8;
+}
+
+/* Buttons */
+button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+.code {
+  display: block;
+  white-space: pre-wrap;
+}
+
