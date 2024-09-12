@@ -42,7 +42,8 @@ body {
 /* Headings */
 h1, h2 {
     color: var(--heading-color);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    margin-top: 20px;
     line-height: 1.2;
 }
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Linux-Befehle</title>
+	<meta charset="utf-8"/>
+	<link rel="icon" type="image/x-icon" href="https://opsanford.github.io/test/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	
+    
+    <link href="prism.css" rel="stylesheet" />
+    <script src="prism.js" defer></script>
+    
+</head>
+<body>
+    <h1>mehr Linux-Zeugs</h1>
+    <p>weitere (nicht so oft gebrauchte) Sachen unter bzw. für Linux</p>
+
+<h2>Optionen im Raspi-Imager:</h2>
+<p>Strg-Shift-X</p>
+
+<h2>SSH-Config</h2>
+<p><b>~/.ssh/config</b> oder <b>~/.ssh/config.d/</b></p>
+<pre><code class="language-bash">Host name123
+  HostName ssh.example.com
+  User username
+  PreferredAuthentications publickey
+  IdentityFile <path>
+  ProxyJump <jumpserver>
+
+Host *
+  IdentitiesOnly yes
+  Compression yes
+</code></pre>
+<h2>Fehlermeldung/Passwortaufforderung bei Wifi-Scans im Remotedesktop</h2>
+<p>
+Datei /etc/polkit-1/localauthority/50-local.d/scan.pkla
+</p>
+Inhalt:
+<pre><code class="language-bash">[Allow Wifi Scan]
+Identity=unix-user:*
+Action=org.freedesktop.NetworkManager.wifi.scan;org.freedesktop.NetworkManager.enable-disable-wifi;org.freedesktop.NetworkManager.settings.modify.own;org.freedesktop.NetworkManager.settings.modify.system;org.freedesktop.NetworkManager.network-control
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+</code></pre>
+
+<h2>Praktische Tools, die aber nicht standardmäßig installiert sind:</h2>
+<pre><code class="language-bash"># manipulate csv
+xsv header|count <filename>
+choose -f ';' 2 5 8 <filename>
+# grep-able json
+gron <filename/url> | grep a.b.c.d
+# view json
+fx <filename>
+# like diff
+delta
+# auto-complete more commands
+fzf
+skim
+# replace text
+sd before after <filename>
+# execute command for every file
+ls | map f '<command with $f>'
+# disk usage
+ncdu
+duf
+dutree
+# benchmark times
+hyperfine --warmup 3 <command1> <command2>
+</code></pre>
+
+</body>
+</html>

@@ -3,20 +3,18 @@
 <head>
     <title>Linux-Befehle</title>
 	<meta charset="utf-8"/>
-	<link rel="icon" type="image/x-icon" href="opsanford.github.io/test/favicon.ico"/>
+	<link rel="icon" type="image/x-icon" href="https://opsanford.github.io/test/favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	
-	<!-- Link to Prism.js CSS for syntax highlighting -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
-    <!-- Prism.js script for highlighting the code -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" defer></script>
+    
+    <link href="prism.css" rel="stylesheet" />
+    <script src="prism.js" defer></script>
     
 </head>
 <body>
     <h1>Linux-Befehle</h1>
-    Befehle in Linux, die ich mir unmöglich merken kann:
-
-weitere Befehle: siehe <a href="">weitere Linux-Befehle (noch nicht vorhanden)</a>
+    <p>Befehls-Cheatsheet</p>
+    <p>weitere Befehle: siehe <a href="linux2.html">weitere Linux-Befehle</a></p>
 <h2>stdout und stderr umleiten</h2>
 <pre><code class="language-bash">command > file_stdout.txt
 command 2> file_stderr.txt
@@ -55,20 +53,26 @@ screen -ls
 screen -rd Name
 </code></pre>
 <h2>Textbearbeitung:</h2>
-micro
-tilde
+<p>
+    micro<br/>
+    tilde
+</p>
 <h2>lokales Netzwerk scannen:</h2>
-nmap -sn 182.168.1.0/24
+<pre><code class="language-bash">nmap -sn 182.168.1.0/24</code></pre>
 <h2>Environment Variables</h2>
-printenv (alle ansehen)
-**lokal:**
-MY_VAR='value'
-printenv MY_VAR
-**inherited:**
-.bashrc, darin Variable erstellen
-**global:**
-/etc/environment
-#<h2>Text ersetzen:</h2>
+<pre><code class="language-bash">printenv</code></pre> (alle ansehen)
+<b>lokal:</b><br/>
+<pre><code class="language-bash">MY_VAR='value'
+printenv MY_VAR</code></pre>
+<p>
+    <b>inherited:</b><br/>
+    .bashrc, darin Variable erstellen
+</p>
+<p>
+    <b>global:</b></br/>
+    /etc/environment
+</p>
+<h2>Text ersetzen:</h2>
 <pre><code class="language-bash">echo Hallo | sed "s/H/h/g"
 sed -i "s/old/new/g" <filename>
 </code></pre>
@@ -84,11 +88,14 @@ cat /etc/group
 usermod -aG <group> <user>
 </code></pre>
 <h2>Befehl ohne sudo als sudo ausführen</h2>
-/etc/sudoers.d/irgendwas
-in der Datei:
-oliver ALL=(ALL) NOPASSWD: /usr/bin/program
-
-auch: hostname=(root, otheruser)
+<p>
+    /etc/sudoers.d/irgendwas
+</p>
+<p>
+    in der Datei:<br/>
+    nutzername ALL=(ALL) NOPASSWD: /usr/bin/program<br/>
+    auch: hostname=(root, otheruser)
+</p>
 <h2>SSH-Server</h2>
 <pre><code class="language-bash">systemctl enable|disable|start|stop|status ssh
 </code></pre>
@@ -96,14 +103,18 @@ auch: hostname=(root, otheruser)
 <pre><code class="language-bash">mount -t ramfs -o size=1m ramfs /mnt/ram
 </code></pre>
 <h2>apt-Repositories</h2>
-/etc/apt/sources.list
-/etc/apt/sources.list.d
+<p>
+    /etc/apt/sources.list<br/>
+    /etc/apt/sources.list.d
+</p>
 <h2>Startmenü (Mint)</h2>
 **global:** /usr/share/applications
 **nur Benutzer:** ~/.local/share/applications
-<h2>Git einrichten</h2>
+<h2>Git</h2>
+<p><b>Einrichtung:</b></p>
 <pre><code class="language-bash">git config --global user.name "abc"
 </code></pre>
+<p>siehe auch: <a href="https://training.github.com/downloads/github-git-cheat-sheet/">Git Cheat Sheet</a></p>
 <h2>Docker:</h2>
 <pre><code class="language-bash"># run docker commands without sudo
 sudo groupadd docker
@@ -124,17 +135,23 @@ docker run -it /
 # open shell
 docker exec -it <name> bash
 </code></pre>
-**detatch from interactive**: Strg-p Strg-q
-**Image**: author/name:version
+<p>
+    <b>detatch from interactive</b>: Strg-p Strg-q<br/>
+    <b>Image</b>: author/name:version
+</p>
 
 <pre><code class="language-bash">ssh-keygen -t ed25519 -a <rounds> -f <filename> -C <comment>
 ssh-copy-id -i <filepath.pub> <host>
 </code></pre>
+
 <h2>Samba:</h2>
-/etc/samba/smb.conf
-Dateibrowser: smb://a.b.c.d/path
-Windows: \\\\a.b.c.d\\path
-systemctl: smbd
+<p>
+    /etc/samba/smb.conf<br/>
+    Dateibrowser: smb://a.b.c.d/path<br/>
+    Windows: \\a.b.c.d\path<br/>
+    systemctl: smbd
+</p>
+
 <h2>ein paar praktische (und meist installierte) Tools:</h2>
 <pre><code class="language-bash"># CSV
 column -s, -t <filename>
@@ -161,12 +178,17 @@ nmcli dev wifi list
 
 nmcli connection delete <name>
 </code></pre>
+
 <h2>Grub Boot Loader installieren</h2>
-apt install grub-efi oder grub-pc
-grub-install /dev/sda
+<pre><code class="language-bash"># je nachdem, ob BIOS oder EFI
+apt install grub-efi
+# oder
+apt install grub-pc
+grub-install /dev/sda</code></pre>
+
 <h2>Remotedesktop:</h2>
-sudo apt install xrdp
-hostname -I (lokale IP-Adresse anzeigen)
+<pre><code class="language-bash">sudo apt install xrdp
+hostname -I # (lokale IP-Adresse anzeigen)</code></pre>
 
 </body>
 </html>
