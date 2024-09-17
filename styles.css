@@ -10,6 +10,7 @@
 /* Adapt to user's system theme using prefers-color-scheme */
 :root {
     --bg-color: #ffffff;
+    --footer-color: #C0C0C0;
     --text-color: #000000;
     --heading-color: #222222;
     --link-color: #007bff;
@@ -21,6 +22,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --bg-color: #121212;
+        --footer-color: #202020;
         --text-color: #e0e0e0;
         --heading-color: #ffffff;
         --link-color: #1e90ff;
@@ -91,3 +93,9 @@ button:hover {
   white-space: pre-wrap;
 }
 
+#footer {
+    background-color: var(--footer-color);
+    color: var(--footer-color);
+    margin-top: 280px;
+    padding: 4px 15px;
+}

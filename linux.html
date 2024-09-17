@@ -13,6 +13,7 @@
 </head>
 <body>
     <h1>Linux-Befehle</h1>
+    <p><a href="index.html">zurück zur Startseite</a></p>
     <p>Befehls-Cheatsheet</p>
     <p>weitere Befehle: siehe <a href="linux2.html">weitere Linux-Befehle</a></p>
 <h2>stdout und stderr umleiten</h2>
@@ -28,6 +29,7 @@ command 2>&1
 <h2>IP-Adressen sehen</h2>
 <pre><code class="language-bash">ifconfig
 arp -a
+ip a
 
 # nur Powershell?
 for /L %i in (0,1,255) do ping -n 1 -w 250 192.168.1.%i >> ipaddress.txt
@@ -39,6 +41,9 @@ hostname -l
 </code></pre>
 <h2>Adressen aus Hostnamen</h2>
 <pre><code class="language-bash">avahi-resolve -n <name>
+</code></pre>
+<h2>Belegung von Ports finden</h2>
+<pre><code class="language-bash">sudo lsof -i :80
 </code></pre>
 <h2>Sachen finden</h2>
 <pre><code class="language-bash">locate <file>
@@ -108,8 +113,8 @@ usermod -aG <group> <user>
     /etc/apt/sources.list.d
 </p>
 <h2>Startmenü (Mint)</h2>
-**global:** /usr/share/applications
-**nur Benutzer:** ~/.local/share/applications
+<b>global:</b> /usr/share/applications<br/>
+<b>nur Benutzer:</b> ~/.local/share/applications
 <h2>Git</h2>
 <p><b>Einrichtung:</b></p>
 <pre><code class="language-bash">git config --global user.name "abc"
@@ -173,9 +178,7 @@ dconf-editor
 <h2>Wifi-Hotspot</h2>
 WLAN anschalten!
 <pre><code class="language-bash">nmcli device wifi hotspot con-name <name> ssid <namd> band bg password <passwd>
-
 nmcli dev wifi list
-
 nmcli connection delete <name>
 </code></pre>
 
@@ -187,8 +190,7 @@ apt install grub-pc
 grub-install /dev/sda</code></pre>
 
 <h2>Remotedesktop:</h2>
-<pre><code class="language-bash">sudo apt install xrdp
-hostname -I # (lokale IP-Adresse anzeigen)</code></pre>
+<pre><code class="language-bash">sudo apt install xrdp</code></pre>
 
 </body>
 </html>
