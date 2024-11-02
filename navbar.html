@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8" />
+<title>Navigation</title>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+<style>
+:root {
+    --block-width: 8rem; 
+}
+#navbar-div {
+    background: var(--navbar-color);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.blockheader {
+    background: #777777;
+    min-width: var(--block-width);
+    margin: 0rem 1rem;
+    & > .block {
+        visibility: hidden;
+        position: absolute;
+        z-index: 1;
+        /*background: #888888;*/
+        min-width: var(--block-width);
+        &  a {
+            color: #ff0000;
+        }
+    }
+    &:hover {
+      background: #888888;
+      & > .block {
+        visibility: visible;
+        & li {
+            list-style-type: none;
+            background: #999999;
+            &:hover {
+                background: #aaaaaa;
+            }
+        }
+      }
+    }
+}
+</style>
+</head>
+<body>
+<div id="navbar-div">
+
+<div class="blockheader">
+Links
+<div class="block">
+<ul>
+<a href=""><li>Link</li></a>
+<a href=""><li>noch ein Link</li></a>
+<a href=""><li>dritter Link</li></a>
+</ul>
+</div>
+</div>
+<div class="blockheader">
+Links2
+<div class="block">
+<ul>
+<a href=""><li>ein Link2</li></a>
+<a href=""><li>noch ein Link2</li></a>
+<a href=""><li>dritter Link2</li></a>
+</ul>
+</div>
+</div>
+
+</div>
+</body>
+</html>

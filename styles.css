@@ -17,6 +17,7 @@
     --button-bg-color: #007bff;
     --button-hover-bg-color: #004992;
     --button-text-color: #ffffff;
+    --navbar-color: #036A6E;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,6 +39,9 @@ body {
     color: var(--text-color);
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
+}
+
+main {
     padding: 20px;
 }
 
@@ -88,9 +92,28 @@ button:hover {
     background-color: var(--button-hover-bg-color);
 }
 
+summary {
+    color: var(--heading-color);
+    font-size: 1.2rem;
+}
+
+details p {
+    margin-left: 20px;
+}
+
 .code {
   display: block;
   white-space: pre-wrap;
+}
+
+#navbar-frame {
+    margin: 0rem;
+    outline: none;
+    display: block;
+    border: none;
+    width: 100%;
+    
+    height: 3rem;
 }
 
 #footer {
