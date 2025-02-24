@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>Linux-Befehle</title>
+    <title>mehr Linux-Zeugs</title>
 	<meta charset="utf-8"/>
 	<link rel="icon" type="image/x-icon" href="https://opsanford.github.io/test/favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="styles.css">
-	
-    
+
+
     <link href="prism.css" rel="stylesheet" />
     <script src="prism.js" defer></script>
-    
+
 </head>
 <body>
     <h1>mehr Linux-Zeugs</h1>
@@ -68,6 +68,32 @@ duf
 dutree
 # benchmark times
 hyperfine --warmup 3 <command1> <command2>
+</code></pre>
+
+<h2>Schreibzyklen verringern</h2>
+in /etc/fstab:
+<pre><code class="language-bash">tmpfs /tmp tmpfs  nosuid,nodev 0 0
+tmpfs /var/log tmpfs  nosuid,nodev 0 0
+tmpfs /var/tmp tmpfs  nosuid,nodev 0 0
+tmpfs /var/lib/misc tmpfs  nosuid,nodev 0 0
+tmpfs /var/cache tmpfs  nosuid,nodev 0 0
+</code></pre>
+
+<h2>Dateiformat von Containern</h2>
+<pre><code class="language-bash">veracrypt --mount /path/to/volume --filesystem=none
+# aktuelles Dateisystem ansehen:
+sudo file -s /dev/mapper/veracrypt1
+# wenn das ein Link ist:
+sudo file -s /dev/dm-0
+
+# Dateiformat ändern:
+sudo mkfs.fat -F 32 /dev/mapper/veracrypt1
+sudo mkfs.fat -F 12 -r <min root entries> /dev/mapper/veracrypt1
+# <min root entries> muss Vielfaches von 512 sein, evtl. auch doppelt so hoch wie Anzahl der Dateien
+</code></pre>
+
+<h2>Videos umformen:</h2>
+<pre><code class="language-bash">ffmpeg -i <input path> -c:v libx265 -crf 28 -preset medium -c:a aac -b:a 128k <output path>
 </code></pre>
 
 <h2>Google Drive</h2>
