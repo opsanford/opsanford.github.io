@@ -96,15 +96,27 @@ button:hover {
 summary {
     color: var(--heading-color);
     font-size: 1.2rem;
+    cursor: cell;
 }
 
 details p {
     margin-left: 20px;
 }
 
-.code {
+fieldset {
+    padding: 0.5rem;
+}
+
+/*.code {
   display: block;
   white-space: pre-wrap;
+}*/
+
+code {
+    display: block;
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+    line-height: 1.3rem;
 }
 
 #navbar-frame {

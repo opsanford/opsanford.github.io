@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Linux2</title>
+	<meta charset="utf-8"/>
+	<link rel="icon" type="image/x-icon" href="https://opsanford.github.io/test/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet"  href="pygments.css" />
+    
+</head>
+<body>
+<h1>Linux2</h1>
+<p><a href="index.html">zurück zur Startseite</a></p>
+<h1>Weitere (nicht so oft gebrauchte) Sachen unter Linux</h1>
+<h2>Optionen im Raspi-Imager:</h2>
+<p>Strg-Shift-X</p>
+<h2>Fehlermeldung/Passwortaufforderung bei Wifi-Scans im Remotedesktop</h2>
+<p>Datei /etc/polkit-1/localauthority/50-local.d/scan.pkla
+Inhalt:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[Allow Wifi Scan]</span><span class="w"></span>
+<span class="na">Identity</span><span class="o">=</span><span class="s">unix-user:*</span><span class="w"></span>
+<span class="na">Action</span><span class="o">=</span><span class="s">org.freedesktop.NetworkManager.wifi.scan;org.freedesktop.NetworkManager.enable-disable-wifi;org.freedesktop.NetworkManager.settings.modify.own;org.freedesktop.NetworkManager.settings.modify.system;org.freedesktop.NetworkManager.network-control</span><span class="w"></span>
+<span class="na">ResultAny</span><span class="o">=</span><span class="s">yes</span><span class="w"></span>
+<span class="na">ResultInactive</span><span class="o">=</span><span class="s">yes</span><span class="w"></span>
+<span class="na">ResultActive</span><span class="o">=</span><span class="s">yes</span><span class="w"></span>
+</code></pre></div>
+
+<h2>Praktische Tools, die aber nicht standardmäßig installiert sind:</h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># manipulate csv</span>
+xsv header<span class="p">|</span>count &lt;filename&gt;
+choose -f <span class="s1">&#39;;&#39;</span> <span class="m">2</span> <span class="m">5</span> <span class="m">8</span> &lt;filename&gt;
+<span class="c1"># grep-able json</span>
+gron &lt;filename/url&gt; <span class="p">|</span> grep a.b.c.d
+<span class="c1"># view json</span>
+fx &lt;filename&gt;
+<span class="c1"># like diff</span>
+delta
+<span class="c1"># auto-complete more commands</span>
+fzf
+skim
+<span class="c1"># replace text</span>
+sd before after &lt;filename&gt;
+<span class="c1"># execute command for every file</span>
+ls <span class="p">|</span> map f <span class="s1">&#39;&lt;command with $f&gt;&#39;</span>
+<span class="c1"># disk usage</span>
+ncdu
+duf
+dutree
+<span class="c1"># benchmark times</span>
+hyperfine --warmup <span class="m">3</span> &lt;command1&gt; &lt;command2&gt;
+</code></pre></div>
+
+<h2>Schreibzyklen verringern</h2>
+<p>in /etc/fstab:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">tmpfs</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="w"> </span><span class="n">tmpfs</span><span class="w">  </span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="n">tmpfs</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="w"> </span><span class="n">tmpfs</span><span class="w">  </span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="n">tmpfs</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">tmp</span><span class="w"> </span><span class="n">tmpfs</span><span class="w">  </span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="n">tmpfs</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">misc</span><span class="w"> </span><span class="n">tmpfs</span><span class="w">  </span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="n">tmpfs</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">cache</span><span class="w"> </span><span class="n">tmpfs</span><span class="w">  </span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+</code></pre></div>
+
+<h2>Dateiformat von Containern</h2>
+<div class="codehilite"><pre><span></span><code>veracrypt --mount /path/to/volume --filesystem<span class="o">=</span>none
+<span class="c1"># aktuelles Dateisystem ansehen:</span>
+sudo file -s /dev/mapper/veracrypt1
+<span class="c1"># wenn das ein Link ist:</span>
+sudo file -s /dev/dm-0
+
+<span class="c1"># Dateiformat ändern:</span>
+sudo mkfs.fat -F <span class="m">32</span> /dev/mapper/veracrypt1
+sudo mkfs.fat -F <span class="m">12</span> -r &lt;min root entries&gt; /dev/mapper/veracrypt1
+<span class="c1"># &lt;min root entries&gt; muss Vielfaches von 512 sein, evtl. auch doppelt so hoch wie Anzahl der Dateien</span>
+</code></pre></div>
+
+<h2>Videos umformen:</h2>
+<div class="codehilite"><pre><span></span><code>ffmpeg -i &lt;input path&gt; -c:v libx265 -crf <span class="m">28</span> -preset medium -c:a aac -b:a 128k &lt;output path&gt;
+</code></pre></div>
+
+<h2>Startmenü (Mint)</h2>
+<p><strong>global:</strong> /usr/share/applications
+<strong>nur Benutzer:</strong> ~/.local/share/application</p></body>
+</html>

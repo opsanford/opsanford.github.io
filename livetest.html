@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8" />
+<title>Live HTML Test</title>
+<style>
+.inputdiv {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 300px;
+}
+.input {
+    flex: 1 0 auto;
+    border: 3px solid cyan;
+    border-radius: 10px;
+    padding: 5px;
+    margin-right: 5px;
+}
+</style>
+<style id="editcss"></style>
+
+</head>
+<body>
+
+<div style="display: flex; flex-flow: row nowrap; margin: 0 10px;">
+<div style="flex: 1 0 auto;"><h1>CSS</h1></div>
+<div style="flex: 1 0 auto; text-align: right;"><h1>HTML</h1></div>
+</div>
+<div class="inputdiv">
+<textarea id="inputcss" class="input"></textarea>
+<textarea id="inputhtml" class="input"></textarea>
+</div>
+
+<div id="edithtml"></div>
+
+<script>
+const editcss = document.getElementById("editcss");
+const edithtml = document.getElementById("edithtml");
+const inputhtml = document.getElementById("inputhtml");
+const inputcss = document.getElementById("inputcss");
+
+function update() {
+    editcss.innerHTML = inputcss.value;
+    edithtml.innerHTML = inputhtml.value;
+}
+
+setTimeout(update, 20);
+inputcss.addEventListener("input", update);
+inputhtml.addEventListener("input", update);
+</script>
+</body>
+</html>
