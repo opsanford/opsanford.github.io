@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8" />
+<title>Encryption</title>
+<script src="encryption.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+<style>
+textarea, input {
+    width: 100%;
+    margin: 1rem;
+    border: 3px #3debfd solid;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+textarea {
+    height: 5rem;
+}
+</style>
+
+</head>
+<body>
+<div style="text-align: center;">
+<p>
+<table style="width: 100%;">
+<tr>
+<td style="width: 37%;"><textarea id="cleartext"></textarea></td>
+<td style="width: 10%;"><input id="password" type="text" size="20" margin:1rem;"></td>
+<td style="width: 37%;"><textarea id="encrypted"></textarea></td>
+</tr>
+</table>
+</p>
+
+<p>
+<button type="button" id="buttonEncrypt">Encrypt</button>
+<button type="button" id="buttonDecrypt">Decrypt</button>
+</p>
+</div>
+
+<div>
+<input type="file" id="inputFile" style="width: auto;" accept="" />
+<button type="button" id="buttonEncryptFile">Encrypt file</button>
+<button type="button" id="buttonDecryptFile">Decrypt file</button>
+</div>
+
+<script>
+const inputPassword = document.getElementById("password");
+
+document.getElementById("buttonEncrypt").addEventListener("click", async function() {
+    document.getElementById("encrypted").value = await encryptTextToStr(inputPassword.value, document.getElementById("cleartext").value);
+});
+
+document.getElementById("buttonDecrypt").addEventListener("click", async function() {
+    document.getElementById("cleartext").value = await decryptTextFromStr(inputPassword.value, document.getElementById("encrypted").value);
+});
+
+document.getElementById("buttonEncryptFile").addEventListener("click", async function(event) {
+    const inputFileElement = document.getElementById("inputFile");
+    const file = inputFileElement.files[0];
+	if(!file) return;
+
+	const encrypted = await encryptFile(inputPassword.value, file);
+
+	const packaged = packageEncryptedData(encrypted.salt, encrypted.iv, encrypted.encrypted);
+
+	downloadFile(packaged, file.name + ".enc", "application/octet-stream");
+
+	inputFileElement.value = "";
+});
+
+document.getElementById("buttonDecryptFile").addEventListener("click", async function(event) {
+    const inputFileElement = document.getElementById("inputFile");
+    const file = inputFileElement.files[0];
+	if(!file) return;
+
+	const encrypted = await unpackageEncryptedFile(file);
+
+	const decryptedData = await decryptData(inputPassword.value, encrypted.encrypted, encrypted.iv, encrypted.salt);
+
+	downloadFile(decryptedData, file.name.substring(0, file.name.length-4), "application/octet-stream");
+
+	inputFileElement.value = "";
+});
+</script>
+</body>
+
+</html>
