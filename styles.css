@@ -33,13 +33,18 @@
     }
 }
 
+html, body {
+    height: 100%;
+}
+
 /* Global styles */
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    padding: 20px;
+    /*background-image: conic-gradient(var(--bg-color) 45deg, #002040 180deg, var(--bg-color) 315deg);*/
+    background-image: linear-gradient(to bottom right, var(--bg-color), #002040);
 }
 
 main {
@@ -131,7 +136,7 @@ code {
 
 #footer {
     background-color: var(--footer-color);
-    color: var(--footer-color);
+    color: var(--text-color);
     margin-top: 280px;
     padding: 4px 15px;
 }
